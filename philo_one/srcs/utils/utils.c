@@ -28,6 +28,34 @@ void	ft_putstr(char *str)
 	}
 }
 
+void	ft_putchar(char c)
+{
+    write(1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+    int nbr;
+
+    if (nb == -2147483648)
+    {
+        write(1, "-2147483648", 11);
+        return ;
+    }
+    if (nb < 0)
+    {
+        nbr = nb * -1;
+        write(1, "-", 1);
+    }
+    else
+        nbr = nb;
+    if (nbr >= 10)
+    {
+        ft_putnbr(nbr / 10);
+    }
+    ft_putchar(nbr % 10 + 48);
+}
+
 int	ft_atoi(const char *nptr)
 {
 	unsigned int		i;
@@ -53,4 +81,17 @@ int	ft_atoi(const char *nptr)
 	else if (nb > 9223372036854775807)
 		return (-1);
 	return (nb * less);
+}
+
+long int current_time(t_time time)
+{
+    gettimeofday(&time.end, NULL);
+    return ((time.end.tv_usec - time.start.tv_usec) / 1000
+            + (time.end.tv_sec - time.start.tv_sec) * 1000);
+}
+
+int return_str(char *str, int ret)
+{
+    ft_putstr(str);
+    return (ret);
 }

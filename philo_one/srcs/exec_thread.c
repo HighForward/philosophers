@@ -2,21 +2,23 @@
 
 void *thread_1(void *arg)
 {
-	int *temp;
-	temp = (int *)arg;
-	(*temp)++;
-	ft_putstr("Nous sommes dans le thread.\n");
-	pthread_exit(EXIT_SUCCESS);
-}
-int		get_thread(t_time time)
-{
-	int i;
-	i = 0;
-	pthread_t thread1;
-	ft_putstr("Avant la création du thread.\n");
-	pthread_create(&thread1, NULL, thread_1, &i);
-	pthread_join(thread1, NULL);
-	ft_putstr("Après la création du thread.\n");
-	printf("%d\n", i);
-	return (EXIT_SUCCESS);
+    while (1)
+    {
+        t_time *temp;
+        temp = arg;
+        ft_putnbr(current_time((*temp)));
+        ft_putstr(" 1 is eating\n");
+        usleep(temp->eat * 1000);
+
+        ft_putnbr(current_time((*temp)));
+        ft_putstr(" 1 is sleeping\n");
+        usleep(temp->sleep * 1000);
+        gettimeofday(&temp->end, NULL);
+
+        ft_putnbr(current_time((*temp)));
+        ft_putstr(" 1 is thinking\n");
+        usleep((temp->die - temp->sleep - temp->eat) * 1000);
+
+    }
+    pthread_exit(EXIT_SUCCESS);
 }

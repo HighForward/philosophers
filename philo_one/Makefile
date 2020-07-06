@@ -3,9 +3,9 @@ NAME		=	philo_one
 CC			= 	gcc
 RM			=	rm -f
 OBJS_DIR	=	./objects/
-HEADERS		=	./includes/		\
+HEADERS		=	./includes/
 
-CFLAGS		= -I${HEADERS}
+CFLAGS		=   -I${HEADERS}
 
 SRCSC		=	srcs/philo_one.c	\
 				srcs/utils/utils.c	\
@@ -19,7 +19,7 @@ ${OBJS_DIR}/%.o: %.c
 			@${CC} ${CFLAGS} -c $< -o $@
 
 ${NAME}:	${OBJS}
-			@${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+			@${CC} ${CFLAGS} ${OBJS} -lpthread -o ${NAME}
 			@printf "\033[2K\033[0;35mPROJECT\033[0;0m:      \033[0;32mSuccess\033[0;0m\n"
 
 all:		${NAME}
