@@ -83,11 +83,13 @@ int	ft_atoi(const char *nptr)
 	return (nb * less);
 }
 
-long int current_time(t_time time)
+long int current_time(t_data data)
 {
-    gettimeofday(&time.end, NULL);
-    return ((time.end.tv_usec - time.start.tv_usec) / 1000
-            + (time.end.tv_sec - time.start.tv_sec) * 1000);
+    struct timeval current;
+
+    gettimeofday(&current, NULL);
+    return ((current.tv_usec - data.start.tv_usec) / 1000
+            + (current.tv_sec - data.start.tv_sec) * 1000);
 }
 
 int return_str(char *str, int ret)

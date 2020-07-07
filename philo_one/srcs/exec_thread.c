@@ -1,24 +1,35 @@
 #include "../includes/philo_one.h"
 
-void *thread_1(void *arg)
+int alive_check(t_philo *thinker)
 {
+    int nb;
+    int i;
+
+    i = 0;
+    nb = thinker[0].data->nb;
+    while (i < nb)
+    {
+        if (thinker[i].ate >= thinker[i].data->must_eat)
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+void *client_thread(void *arg)
+{
+    t_philo *now;
+
+    now = (t_philo*)arg;
+    pthread_mutex_lock(&now->mutex);
     while (1)
     {
-        t_time *temp;
-        temp = arg;
-        ft_putnbr(current_time((*temp)));
-        ft_putstr(" 1 is eating\n");
-        usleep(temp->eat * 1000);
-
-        ft_putnbr(current_time((*temp)));
-        ft_putstr(" 1 is sleeping\n");
-        usleep(temp->sleep * 1000);
-        gettimeofday(&temp->end, NULL);
-
-        ft_putnbr(current_time((*temp)));
-        ft_putstr(" 1 is thinking\n");
-        usleep((temp->die - temp->sleep - temp->eat) * 1000);
-
+        printf("%ld %d is eating\n", current_time((*now->data)), now->index);
+        usleep(1000 * 1000);
+        now->ate++;
+        printf("%ld %d is sleeping\n", current_time((*now->data)), now->index);
+        usleep(1000 * 1000);
+        printf("%ld %d is thinking\n", current_time((*now->data)), now->index);
     }
-    pthread_exit(EXIT_SUCCESS);
+    pthread_mutex_unlock(&now->mutex);
 }

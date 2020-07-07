@@ -1,44 +1,48 @@
 #include "../includes/philo_one.h"
 
-void	print_struct(t_time time)
+int create_thinkers(t_data *data)
 {
-	printf("%d\n", time.nb);
-	printf("%d\n", time.die);
-	printf("%d\n", time.eat);
-	printf("%d\n", time.sleep);
-}
+    int i;
+    t_philo *thinker;
 
-t_time	init_struct(char **argv)
-{
-	t_time init;
+    thinker = malloc(sizeof(t_philo) * data->nb);
+    gettimeofday(&data->start, NULL);
+    i = 0;
+    while (i < data->nb)
+    {
+        thinker[i].index = i;
+        thinker[i].data = data;
+        thinker[i].ate = 0;
+        pthread_mutex_init(&thinker[i].mutex, NULL);
+        pthread_mutex_unlock(&thinker[i].mutex);
+        pthread_create(&thinker[i].thread, NULL, client_thread, (void*)&thinker[i]);
+        i++;
+    }
 
-	init.nb = ft_atoi(argv[0]);
-	init.die = ft_atoi(argv[1]);
-	init.eat = ft_atoi(argv[2]);
-	init.sleep = ft_atoi(argv[3]);
-	init.life = 1;
-	return (init);
-}
+    i = 0;
+    while (i < data->nb)
+    {
+        pthread_detach(thinker[i].thread);
+        i++;
+    }
 
-int		philo_start(t_time time)
-{
-    gettimeofday(&time.start, NULL);
-    pthread_t thread;
+    while (alive_check(thinker) == 1);
 
-    pthread_create(&thread, NULL, thread_1, &time);
-    pthread_join(thread, NULL);
-	return (1);
+    return (0);
 }
 
 int main(int argc, char **args)
 {
-    t_time thinker;
+    t_data data;
 
-    if (argc <= 4 || argc > 6)
-        return (return_str("Wrong arguments\n", 0));
-    thinker = init_struct(args + 1);
+    if (argc < 5 || argc > 6)
+        return (return_str("wrong arguments\n", 0));
+    data = init_struct(args + 1);
 
-    philo_start(thinker);
+    if (create_thinkers(&data) != 0)
+        return (0);
+
+
     return (0);
 }
 

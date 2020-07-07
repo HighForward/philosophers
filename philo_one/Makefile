@@ -10,6 +10,7 @@ CFLAGS		=   -I${HEADERS}
 SRCSC		=	srcs/philo_one.c	\
 				srcs/utils/utils.c	\
 				srcs/exec_thread.c	\
+				srcs/init.c         \
 
 OBJS		= ${SRCSC:%.c=${OBJS_DIR}/%.o}
 
