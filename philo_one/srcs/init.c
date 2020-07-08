@@ -1,16 +1,15 @@
 #include "../includes/philo_one.h"
 
-t_data	init_struct(char **argv)
+int	init_struct(char **argv, t_data *data)
 {
-    t_data init;
-
-    init.nb = ft_atoi(argv[0]);
-    init.die = ft_atoi(argv[1]);
-    init.eat = ft_atoi(argv[2]);
-    init.sleep = ft_atoi(argv[3]);
+    data->nb = ft_atoi(argv[0]);
+    data->die = ft_atoi(argv[1]);
+    data->eat = ft_atoi(argv[2]);
+    data->sleep = ft_atoi(argv[3]);
     if (argv[4] != NULL)
-        init.must_eat = ft_atoi(argv[4]);
+        data->must_eat = ft_atoi(argv[4]);
     else
-        init.must_eat = 2147483647;
-    return (init);
+        data->must_eat = 2147483647;
+    pthread_mutex_init(&data->mutex_msg, NULL);
+    return (1);
 }

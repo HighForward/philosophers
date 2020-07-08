@@ -10,13 +10,14 @@
 #include "./philo_one_structures.h"
 
 int		    ft_atoi(const char *nptr);
+void	ft_putchar(char c);
 void	    ft_putstr(char *str);
 void	    ft_putnbr(int nb);
 int		    ft_strlen(const char *str);
 int         return_str(char *str, int ret);
 long int    current_time(t_data data);
-t_data      init_struct(char **argv);
-int         alive_check(t_philo *thinker);
+int      init_struct(char **argv, t_data *data);
+int         alive_check(t_philo *thinker, t_data *data);
 void        *client_thread(void *arg);
 
 
