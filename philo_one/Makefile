@@ -11,6 +11,7 @@ SRCSC		=	srcs/philo_one.c	\
 				srcs/utils/utils.c	\
 				srcs/exec_thread.c	\
 				srcs/init.c         \
+				srcs/message.c      \
 
 OBJS		= ${SRCSC:%.c=${OBJS_DIR}/%.o}
 
@@ -20,7 +21,7 @@ ${OBJS_DIR}/%.o: %.c
 			@${CC} ${CFLAGS} -c $< -o $@
 
 ${NAME}:	${OBJS}
-			@${CC} ${CFLAGS} ${OBJS} -lpthread -o ${NAME}
+			@${CC} ${CFLAGS} ${OBJS} -pthread -o ${NAME}
 			@printf "\033[2K\033[0;35mPROJECT\033[0;0m:      \033[0;32mSuccess\033[0;0m\n"
 
 all:		${NAME}

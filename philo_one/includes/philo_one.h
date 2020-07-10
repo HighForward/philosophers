@@ -1,6 +1,7 @@
 #ifndef PHILO_ONE_H
 #define PHILO_ONE_H
 
+#define _GNU_SOURCE
 #include <sys/time.h>
 #include <pthread.h>
 #include <stdlib.h>
@@ -19,6 +20,9 @@ long int    current_time(t_data data);
 int      init_struct(char **argv, t_data *data);
 int         alive_check(t_philo *thinker, t_data *data);
 void        *client_thread(void *arg);
+int init_mutex(t_data *data);
+int init_thinker(t_philo *thinker, t_data *data, int i);
+void message_alert(long int time, int index, t_philo *thinker, int status);
 
 
 

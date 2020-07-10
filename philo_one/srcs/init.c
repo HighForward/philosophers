@@ -10,6 +10,34 @@ int	init_struct(char **argv, t_data *data)
         data->must_eat = ft_atoi(argv[4]);
     else
         data->must_eat = 2147483647;
-    pthread_mutex_init(&data->mutex_msg, NULL);
     return (1);
+}
+
+int init_mutex(t_data *data)
+{
+    int i;
+
+    i = 0;
+    pthread_mutex_init(&data->mutex_msg, NULL);
+    pthread_mutex_unlock(&data->mutex_msg);
+
+    while (i < data->nb)
+    {
+        pthread_mutex_init(&data->forks[i], NULL);
+        pthread_mutex_unlock(&data->forks[i]);
+        i++;
+    }
+    pthread_mutex_init(&data->take_fork, NULL);
+    return (0);
+}
+
+int init_thinker(t_philo *thinker, t_data *data, int i)
+{
+    thinker->index = i + 1;
+    thinker->data = data;
+    thinker->total_meal = 0;
+    thinker->is_eating = 0;
+    thinker->timeout = data->die;
+    thinker->rfork = i;
+    thinker->lfork = ((i + 1) == data->nb) ? 0 : (i + 1);
 }

@@ -8,7 +8,6 @@
 #define DIED 5
 #define FED 6
 
-
 typedef struct	s_data
 {
 	int nb;
@@ -18,17 +17,20 @@ typedef struct	s_data
 	int must_eat;
     struct timeval start;
     pthread_mutex_t mutex_msg;
+    pthread_mutex_t *forks;
+    pthread_mutex_t take_fork;
 }				t_data;
 
 typedef struct  s_philo
 {
     pthread_t thread;
+    t_data *data;
     int index;
     int is_eating;
-    int ate;
-    int last_eat;
+    int total_meal;
     int timeout;
-    t_data *data;
+    int lfork;
+    int rfork;
 }               t_philo;
 
 #endif
