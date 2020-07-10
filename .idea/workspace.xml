@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7f81e5bb-89e1-4132-8ddf-bca8c10ba511" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/philo_one/includes/philo_one_structures.h" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/includes/philo_one_structures.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/philo_one/objects/srcs/exec_thread.o" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/objects/srcs/exec_thread.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/philo_one/objects/srcs/init.o" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/objects/srcs/init.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/philo_one/objects/srcs/philo_one.o" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/objects/srcs/philo_one.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/philo_one/philo_one" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/philo_one" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/philo_one/srcs/exec_thread.c" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/srcs/exec_thread.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/philo_one/srcs/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/srcs/init.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/philo_one/srcs/philo_one.c" beforeDir="false" afterPath="$PROJECT_DIR$/philo_one/srcs/philo_one.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1eK2ZsEeJfrCSAqVkWj6RhI55e2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7f81e5bb-89e1-4132-8ddf-bca8c10ba511" name="Default Changelist" comment="" />
+      <created>1594056023218</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1594056023218</updated>
+      <workItem from="1594056025478" duration="12777000" />
+      <workItem from="1594125785339" duration="30866000" />
+      <workItem from="1594207915591" duration="26651000" />
+      <workItem from="1594297247891" duration="36025000" />
+      <workItem from="1594381892729" duration="18666000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="614" y="186" width="587" height="768" key="find.popup" timestamp="1594409970025">
+      <screen x="0" y="25" width="1920" height="950" />
+    </state>
+    <state x="614" y="186" width="587" height="768" key="find.popup/0.25.1920.950@0.25.1920.950" timestamp="1594409970025" />
+  </component>
+</project>

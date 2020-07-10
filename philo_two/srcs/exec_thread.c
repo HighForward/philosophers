@@ -1,4 +1,4 @@
-#include "../includes/philo_one.h"
+#include "../includes/philo_two.h"
 
 int alive_check(t_philo *thinker, t_data *data)
 {
@@ -33,10 +33,9 @@ void *client_thread(void *arg)
     {
 
         /************************** deadlock ici =) **************************/
-
-        pthread_mutex_lock(&now->data->forks[now->rfork]);
+        sem_wait(&now->data->sem_fork);
         message_alert(current_time((*now->data)), now->index, now, FORK);
-        pthread_mutex_lock(&now->data->forks[now->lfork]);
+        sem_wait(&now->data->sem_fork);
         message_alert(current_time((*now->data)), now->index, now, FORK);
 
 
@@ -45,11 +44,11 @@ void *client_thread(void *arg)
         now->is_eating = 1;
         usleep(now->data->eat * 1000);
 
-
-        pthread_mutex_unlock(&now->data->forks[now->rfork]);
-        pthread_mutex_unlock(&now->data->forks[now->lfork]);
         now->is_eating = 0;
         now->total_meal++;
+
+        sem_post(&now->data->sem_fork);
+        sem_post(&now->data->sem_fork);
 
         /************************** deadlock ici =) **************************/
 

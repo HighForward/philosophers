@@ -1,5 +1,5 @@
-#ifndef PHILO_ONE_STRUCTURES_H
-#define PHILO_ONE_STRUCTURES_H
+#ifndef PHILO_TWO_STRUCTURES_H
+#define PHILO_TWO_STRUCTURES_H
 
 #define EAT 1
 #define SLEEP 2
@@ -16,10 +16,8 @@ typedef struct	s_data
 	int sleep;
 	int must_eat;
     struct timeval start;
-    pthread_mutex_t mutex_msg;
-    pthread_mutex_t *forks;
-    int *forks_av;
-    pthread_mutex_t take_fork;
+    sem_t sem_msg;
+    sem_t sem_fork;
 }				t_data;
 
 typedef struct  s_philo

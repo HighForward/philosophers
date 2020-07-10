@@ -1,4 +1,4 @@
-#include "../../includes/philo_one.h"
+#include "../includes/philo_one.h"
 
 int	ft_strlen(const char *str)
 {

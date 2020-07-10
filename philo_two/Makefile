@@ -1,5 +1,5 @@
 
-NAME		=	philo_one
+NAME		=	philo_two
 CC			= 	gcc
 RM			=	rm -f
 OBJS_DIR	=	./objects/
@@ -7,7 +7,7 @@ HEADERS		=	./includes/
 
 CFLAGS		=   -I${HEADERS}
 
-SRCSC		=	srcs/philo_one.c	\
+SRCSC		=	srcs/philo_two.c	\
 				srcs/utils.c	\
 				srcs/exec_thread.c	\
 				srcs/init.c         \
