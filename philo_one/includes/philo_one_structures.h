@@ -28,6 +28,7 @@ typedef struct  s_philo
     t_data *data;
     int index;
     int is_eating;
+    pthread_mutex_t mutex_eat;
     int total_meal;
     int timeout;
     int lfork;

@@ -25,6 +25,7 @@ int init_thinker(t_philo *thinker, t_data *data, int i)
     thinker->data = data;
     thinker->total_meal = 0;
     thinker->is_eating = 0;
+    sem_init(&thinker->sem_eat, 0, 1);
     thinker->timeout = data->die;
     thinker->rfork = i;
     thinker->lfork = ((i + 1) == data->nb) ? 0 : (i + 1);

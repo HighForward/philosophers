@@ -9,7 +9,7 @@ CFLAGS		=   -I${HEADERS}
 
 SRCSC		=	srcs/philo_three.c	\
 				srcs/utils.c	\
-				srcs/exec_thread.c	\
+				srcs/exec_processes.c	\
 				srcs/init.c         \
 				srcs/message.c      \
 

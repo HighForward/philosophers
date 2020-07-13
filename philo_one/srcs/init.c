@@ -37,7 +37,9 @@ int init_thinker(t_philo *thinker, t_data *data, int i)
     thinker->data = data;
     thinker->total_meal = 0;
     thinker->is_eating = 0;
-    thinker->timeout = data->die;
+    thinker->timeout = data->die + current_time((*data));
+    pthread_mutex_init(&thinker->mutex_eat, NULL);
+    pthread_mutex_unlock(&thinker->mutex_eat);
     thinker->rfork = i;
     thinker->lfork = ((i + 1) == data->nb) ? 0 : (i + 1);
 }

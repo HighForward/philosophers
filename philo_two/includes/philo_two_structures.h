@@ -26,6 +26,7 @@ typedef struct  s_philo
     t_data *data;
     int index;
     int is_eating;
+    sem_t sem_eat;
     int total_meal;
     int timeout;
     int lfork;
