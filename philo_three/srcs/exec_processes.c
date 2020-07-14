@@ -21,12 +21,12 @@ void *alive_check(void *arg)
     {
         if (thinker->total_meal >= thinker->data->must_eat)
         {
-//            message_alert(current_time((*data)), i + 1, thinker, FED);
+            message_alert(current_time((*thinker->data)), thinker->index, thinker, FED);
             exit(EXIT_SUCCESS);
         }
         if (thinker->timeout < current_time((*thinker->data)))
         {
-//            message_alert(current_time((*data)), i + 1, thinker, DIED);
+            message_alert(current_time((*thinker->data)), thinker->index, thinker, DIED);
             exit(EXIT_SUCCESS);
         }
         usleep(30);
@@ -39,13 +39,15 @@ int create_process(t_data *data, t_philo *thinker)
     thinker->pid = fork();
     if (thinker->pid == 0)
     {
+        data->sem_msg = sem_open("/sem_msg", O_RDWR);
+        data->sem_fork = sem_open("/sem_fork", O_RDWR);
         pthread_create(&thinker->thread, NULL, alive_check, (void*)thinker);
         pthread_detach(thinker->thread);
         while (1)
         {
-            sem_wait(&data->sem_fork);
+            sem_wait(data->sem_fork);
             message_alert(current_time((*thinker->data)), thinker->index, thinker, FORK);
-            sem_wait(&data->sem_fork);
+            sem_wait(data->sem_fork);
             message_alert(current_time((*thinker->data)), thinker->index, thinker, FORK);
 
 
@@ -56,8 +58,8 @@ int create_process(t_data *data, t_philo *thinker)
             thinker->is_eating = 0;
             thinker->total_meal++;
 
-            sem_post(&data->sem_fork);
-            sem_post(&data->sem_fork);
+            sem_post(data->sem_fork);
+            sem_post(data->sem_fork);
 
 
             message_alert(current_time((*thinker->data)), thinker->index, thinker, SLEEP);

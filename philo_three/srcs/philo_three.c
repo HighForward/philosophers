@@ -26,10 +26,12 @@ int main(int argc, char **args)
 {
     t_data data;
     t_philo *thinker;
+    int i;
     int status;
 
-    if (argc < 5 || argc > 6)
+    if (argc < 5 || argc > 6) {
         return (return_str("wrong arguments\n", 0));
+    }
 
     init_struct(args + 1, &data);
     init_semaphore(&data);
@@ -37,7 +39,14 @@ int main(int argc, char **args)
         return (0);
 
     waitpid(-1, &status, 0);
-//    while (alive_check(thinker, &data) == 1);
+    i = 0;
+    while (i < data.nb)
+    {
+        kill(thinker[i].pid, SIGQUIT);
+        i++;
+    }
+    sem_unlink("/sem_fork");
+    sem_unlink("/sem_msg");
 
     return (0);
 }

@@ -15,8 +15,10 @@ int	init_struct(char **argv, t_data *data)
 
 int init_semaphore(t_data *data)
 {
-    sem_init(&data->sem_msg, 0, 1);
-    sem_init(&data->sem_fork, 0, data->nb);
+    data->sem_msg = sem_open("/sem_msg", O_CREAT, 0664, 1);
+    sem_close(data->sem_msg);
+    data->sem_fork = sem_open("/sem_fork", O_CREAT, 0664, data->nb);
+    sem_close(data->sem_fork);
 }
 
 int init_thinker(t_philo *thinker, t_data *data, int i)
