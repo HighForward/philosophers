@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <fcntl.h>
 #include "./philo_two_structures.h"
 
 int		    ft_atoi(const char *nptr);

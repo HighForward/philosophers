@@ -23,6 +23,10 @@ int main(int argc, char **args)
 {
     t_data data;
     t_philo *thinker;
+    int i;
+
+    sem_unlink("/sem_msg");
+    sem_unlink("/sem_fork");
 
     if (argc < 5 || argc > 6)
         return (return_str("wrong arguments\n", 0));
@@ -34,5 +38,15 @@ int main(int argc, char **args)
 
     while (alive_check(thinker, &data) == 1);
 
+    sem_close(data.sem_msg);
+    sem_close(data.sem_fork);
+    sem_unlink("/sem_msg");
+    sem_unlink("/sem_fork");
+    i = 0;
+    while (i < data.nb)
+    {
+        sem_close(&thinker[i].sem_eat);
+        i++;
+    }
     return (0);
 }

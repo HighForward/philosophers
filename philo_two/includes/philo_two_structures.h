@@ -16,8 +16,8 @@ typedef struct	s_data
 	int sleep;
 	int must_eat;
     struct timeval start;
-    sem_t sem_msg;
-    sem_t sem_fork;
+    sem_t *sem_msg;
+    sem_t *sem_fork;
 }				t_data;
 
 typedef struct  s_philo

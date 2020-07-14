@@ -45,9 +45,9 @@ void *client_thread(void *arg)
     {
         /************************** deadlock ici =) **************************/
 
-        sem_wait(&now->data->sem_fork);
+        sem_wait(now->data->sem_fork);
         message_alert(current_time((*now->data)), now->index, now, FORK);
-        sem_wait(&now->data->sem_fork);
+        sem_wait(now->data->sem_fork);
         message_alert(current_time((*now->data)), now->index, now, FORK);
 
 
@@ -63,8 +63,8 @@ void *client_thread(void *arg)
         sem_post(&now->sem_eat);
 
 
-        sem_post(&now->data->sem_fork);
-        sem_post(&now->data->sem_fork);
+        sem_post(now->data->sem_fork);
+        sem_post(now->data->sem_fork);
 
         /************************** deadlock ici =) **************************/
 
