@@ -30,30 +30,30 @@ void	ft_putstr(char *str)
 
 void	ft_putchar(char c)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
 }
 
 void	ft_putnbr(int nb)
 {
-    int nbr;
+	int nbr;
 
-    if (nb == -2147483648)
-    {
-        write(1, "-2147483648", 11);
-        return ;
-    }
-    if (nb < 0)
-    {
-        nbr = nb * -1;
-        write(1, "-", 1);
-    }
-    else
-        nbr = nb;
-    if (nbr >= 10)
-    {
-        ft_putnbr(nbr / 10);
-    }
-    ft_putchar(nbr % 10 + 48);
+	if (nb == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return ;
+	}
+	if (nb < 0)
+	{
+		nbr = nb * -1;
+		write(1, "-", 1);
+	}
+	else
+		nbr = nb;
+	if (nbr >= 10)
+	{
+		ft_putnbr(nbr / 10);
+	}
+	ft_putchar(nbr % 10 + 48);
 }
 
 int	ft_atoi(const char *nptr)
@@ -85,15 +85,31 @@ int	ft_atoi(const char *nptr)
 
 long int current_time(t_data data)
 {
-    struct timeval current;
+	struct timeval current;
 
-    gettimeofday(&current, NULL);
-    return ((current.tv_usec - data.start.tv_usec) / 1000
-            + (current.tv_sec - data.start.tv_sec) * 1000);
+	gettimeofday(&current, NULL);
+	return ((current.tv_usec - data.start.tv_usec) / 1000
+			+ (current.tv_sec - data.start.tv_sec) * 1000);
 }
 
 int return_str(char *str, int ret)
 {
-    ft_putstr(str);
-    return (ret);
+	ft_putstr(str);
+	return (ret);
+}
+
+void ft_usleep(int n)
+{
+	struct timeval start;
+	struct timeval step;
+
+	gettimeofday(&start, NULL);
+	while (1)
+	{
+		usleep(50);
+		gettimeofday(&step, NULL);
+		if ((step.tv_sec - start.tv_sec) * 1000000 +
+		(step.tv_usec - start.tv_usec) > n)
+			break ;
+	}
 }

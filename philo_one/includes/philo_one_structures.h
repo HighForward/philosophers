@@ -18,17 +18,16 @@ typedef struct	s_data
     struct timeval start;
     pthread_mutex_t mutex_msg;
     pthread_mutex_t *forks;
-    int *forks_av;
     pthread_mutex_t take_fork;
 }				t_data;
 
 typedef struct  s_philo
 {
     pthread_t thread;
+    pthread_mutex_t mutex_eat;
     t_data *data;
     int index;
     int is_eating;
-    pthread_mutex_t mutex_eat;
     int total_meal;
     int timeout;
     int lfork;

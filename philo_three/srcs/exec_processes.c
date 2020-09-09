@@ -31,7 +31,6 @@ void *alive_check(void *arg)
         }
         usleep(30);
     }
-    exit(EXIT_SUCCESS);
 }
 
 int create_process(t_data *data, t_philo *thinker)
@@ -41,15 +40,17 @@ int create_process(t_data *data, t_philo *thinker)
     {
         data->sem_msg = sem_open("/sem_msg", O_RDWR);
         data->sem_fork = sem_open("/sem_fork", O_RDWR);
+        data->take_fork = sem_open("/take_fork", O_RDWR);
         pthread_create(&thinker->thread, NULL, alive_check, (void*)thinker);
         pthread_detach(thinker->thread);
         while (1)
         {
+            sem_wait(data->take_fork);
             sem_wait(data->sem_fork);
             message_alert(current_time((*thinker->data)), thinker->index, thinker, FORK);
             sem_wait(data->sem_fork);
             message_alert(current_time((*thinker->data)), thinker->index, thinker, FORK);
-
+            sem_post(data->take_fork);
 
             message_alert(current_time((*thinker->data)), thinker->index, thinker, EAT);
             thinker->timeout = current_time((*thinker->data)) + (thinker->data->die);
@@ -61,11 +62,8 @@ int create_process(t_data *data, t_philo *thinker)
             sem_post(data->sem_fork);
             sem_post(data->sem_fork);
 
-
             message_alert(current_time((*thinker->data)), thinker->index, thinker, SLEEP);
             usleep(thinker->data->sleep * 1000);
-
-
 
             message_alert(current_time((*thinker->data)), thinker->index, thinker, THINK);
         }

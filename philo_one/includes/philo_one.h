@@ -10,20 +10,20 @@
 #include <stdio.h>
 #include "./philo_one_structures.h"
 
-int		    ft_atoi(const char *nptr);
-void	ft_putchar(char c);
+long int    current_time(t_data data);
+void        ft_usleep(int n);
+void	    ft_putchar(char c);
 void	    ft_putstr(char *str);
 void	    ft_putnbr(int nb);
+void        *client_thread(void *arg);
+void        message_alert(long int time, int index, t_philo *thinker, int status);
+int		    ft_atoi(const char *nptr);
 int		    ft_strlen(const char *str);
 int         return_str(char *str, int ret);
-long int    current_time(t_data data);
-int      init_struct(char **argv, t_data *data);
+int         init_struct(char **argv, t_data *data);
 int         alive_check(t_philo *thinker, t_data *data);
-void        *client_thread(void *arg);
-int init_mutex(t_data *data);
-int init_thinker(t_philo *thinker, t_data *data, int i);
-void message_alert(long int time, int index, t_philo *thinker, int status);
-
+int         init_mutex(t_data *data);
+int         init_thinker(t_philo *thinker, t_data *data, int i);
 
 
 #endif

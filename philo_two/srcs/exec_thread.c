@@ -17,7 +17,6 @@ int alive_check(t_philo *thinker, t_data *data)
     int i;
 
     i = 0;
-//    usleep(30);
     while (i < data->nb)
     {
         if (thinker[i].total_meal >= thinker[i].data->must_eat)
@@ -37,39 +36,36 @@ int alive_check(t_philo *thinker, t_data *data)
 
 void *client_thread(void *arg)
 {
-    t_philo *now;
-    int ret;
+    t_philo *t;
 
-    now = (t_philo*)arg;
+    t = (t_philo*)arg;
     while (1)
     {
-        /************************** deadlock ici =) **************************/
 
-        sem_wait(now->data->sem_fork);
-        message_alert(current_time((*now->data)), now->index, now, FORK);
-        sem_wait(now->data->sem_fork);
-        message_alert(current_time((*now->data)), now->index, now, FORK);
+        sem_wait(t->data->take_fork);
+        sem_wait(t->data->sem_fork);
+        message_alert(current_time((*t->data)), t->index, t, FORK);
+        sem_wait(t->data->sem_fork);
+        message_alert(current_time((*t->data)), t->index, t, FORK);
+        sem_post(t->data->take_fork);
+
+        t->timeout = current_time((*t->data)) + (t->data->die);
+        message_alert(current_time((*t->data)), t->index, t, EAT);
+
+        sem_wait(&t->sem_eat);
+        t->is_eating = 1;
+        usleep(t->data->eat * 1000);
+        t->is_eating = 0;
+        t->total_meal++;
+        sem_post(&t->sem_eat);
 
 
-        now->timeout = current_time((*now->data)) + (now->data->die);
-        message_alert(current_time((*now->data)), now->index, now, EAT);
+        sem_post(t->data->sem_fork);
+        sem_post(t->data->sem_fork);
 
 
-        sem_wait(&now->sem_eat);
-        now->is_eating = 1;
-        usleep(now->data->eat * 1000);
-        now->is_eating = 0;
-        now->total_meal++;
-        sem_post(&now->sem_eat);
-
-
-        sem_post(now->data->sem_fork);
-        sem_post(now->data->sem_fork);
-
-        /************************** deadlock ici =) **************************/
-
-        message_alert(current_time((*now->data)), now->index, now, SLEEP);
-        usleep(now->data->sleep * 1000);
-        message_alert(current_time((*now->data)), now->index, now, THINK);
+        message_alert(current_time((*t->data)), t->index, t, SLEEP);
+        usleep(t->data->sleep * 1000);
+        message_alert(current_time((*t->data)), t->index, t, THINK);
     }
 }

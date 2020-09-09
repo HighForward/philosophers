@@ -97,3 +97,19 @@ int return_str(char *str, int ret)
     ft_putstr(str);
     return (ret);
 }
+
+void ft_usleep(int n)
+{
+    struct timeval start;
+    struct timeval step;
+
+    gettimeofday(&start, NULL);
+    while (1)
+    {
+        usleep(50);
+        gettimeofday(&step, NULL);
+        if ((step.tv_sec - start.tv_sec) * 1000000 +
+            (step.tv_usec - start.tv_usec) > n)
+            break ;
+    }
+}

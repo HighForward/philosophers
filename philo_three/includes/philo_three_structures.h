@@ -18,6 +18,7 @@ typedef struct	s_data
     struct timeval start;
     sem_t *sem_msg;
     sem_t *sem_fork;
+    sem_t *take_fork;
 }				t_data;
 
 typedef struct  s_philo
