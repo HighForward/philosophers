@@ -34,5 +34,6 @@ void	message_alert(long int time, int index, t_philo *thinker, int status)
 		write(1, "died\n", 5);
 	else if (status == FED)
 		write(1, "everyone is fed\n", 16);
-	pthread_mutex_unlock(&thinker->data->mutex_msg);
+	if (status != DIED)
+		pthread_mutex_unlock(&thinker->data->mutex_msg);
 }

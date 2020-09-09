@@ -7,11 +7,12 @@ HEADERS		=	./includes/
 
 CFLAGS		=   -I${HEADERS}
 
-SRCSC		=	srcs/philo_three.c	\
-				srcs/utils.c	\
+SRCSC		=	srcs/philo_three.c		\
+				srcs/utils.c			\
+				srcs/utils_two.c		\
 				srcs/exec_processes.c	\
-				srcs/init.c         \
-				srcs/message.c      \
+				srcs/init.c         	\
+				srcs/message.c      	\
 
 OBJS		= ${SRCSC:%.c=${OBJS_DIR}/%.o}
 

@@ -36,8 +36,8 @@ int		alive_check(t_philo *thinker, t_data *data)
 			message_alert(current_time((*data)), i + 1, thinker, FED);
 			return (0);
 		}
-		if (thinker[i].timeout < current_time((*thinker[i].data))
-			&& is_eating(thinker[i]) == 0)
+		if (thinker[i].timeout < current_time((*thinker[i].data)) &&
+			thinker->is_eating == 0)
 		{
 			message_alert(current_time((*data)), i + 1, thinker, DIED);
 			return (0);
@@ -45,6 +45,14 @@ int		alive_check(t_philo *thinker, t_data *data)
 		i++;
 	}
 	return (1);
+}
+
+void	t_eat(t_philo *t)
+{
+	pthread_mutex_lock(&t->data->forks[t->lfork]);
+	message_alert(current_time((*t->data)), t->index, t, FORK);
+	pthread_mutex_lock(&t->data->forks[t->rfork]);
+	message_alert(current_time((*t->data)), t->index, t, FORK);
 }
 
 void	*client_thread(void *arg)
@@ -55,23 +63,21 @@ void	*client_thread(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&t->data->take_fork);
-		pthread_mutex_lock(&t->data->forks[t->lfork]);
-		message_alert(current_time((*t->data)), t->index, t, FORK);
-		pthread_mutex_lock(&t->data->forks[t->rfork]);
-		message_alert(current_time((*t->data)), t->index, t, FORK);
+		t_eat(t);
 		pthread_mutex_unlock(&t->data->take_fork);
 		t->timeout = current_time((*t->data)) + (t->data->die);
 		message_alert(current_time((*t->data)), t->index, t, EAT);
 		pthread_mutex_lock(&t->mutex_eat);
 		t->is_eating = 1;
-		ft_usleep(t->data->eat * 1000);
+		usleep(t->data->eat * 1000);
 		t->is_eating = 0;
 		t->total_meal++;
 		pthread_mutex_unlock(&t->mutex_eat);
 		pthread_mutex_unlock(&t->data->forks[t->lfork]);
 		pthread_mutex_unlock(&t->data->forks[t->rfork]);
 		message_alert(current_time((*t->data)), t->index, t, SLEEP);
-		ft_usleep(t->data->sleep * 1000);
+		usleep(t->data->sleep * 1000);
+		usleep(1000);
 		message_alert(current_time((*t->data)), t->index, t, THINK);
 	}
 }

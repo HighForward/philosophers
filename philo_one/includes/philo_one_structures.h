@@ -35,8 +35,8 @@ typedef struct		s_data
 
 typedef struct		s_philo
 {
-	pthread_mutex_t	mutex_eat;
 	pthread_t		thread;
+	pthread_mutex_t	mutex_eat;
 	t_data			*data;
 	int				index;
 	int				is_eating;
