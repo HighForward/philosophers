@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   message.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/09 04:35:45 by user42            #+#    #+#             */
+/*   Updated: 2020/09/09 04:35:46 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo_one.h"
 
-void message_alert(long int time, int index, t_philo *thinker, int status)
+void	message_alert(long int time, int index, t_philo *thinker, int status)
 {
 	pthread_mutex_lock(&thinker->data->mutex_msg);
 	ft_putnbr(time);

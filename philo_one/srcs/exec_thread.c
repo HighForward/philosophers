@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_thread.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/09 04:36:02 by user42            #+#    #+#             */
+/*   Updated: 2020/09/09 04:36:04 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo_one.h"
 
-int is_eating(t_philo thinker)
+int		is_eating(t_philo thinker)
 {
 	pthread_mutex_lock(&thinker.mutex_eat);
 	if (thinker.is_eating == 0)
@@ -12,7 +24,7 @@ int is_eating(t_philo thinker)
 	return (1);
 }
 
-int alive_check(t_philo *thinker, t_data *data)
+int		alive_check(t_philo *thinker, t_data *data)
 {
 	int i;
 
@@ -35,7 +47,7 @@ int alive_check(t_philo *thinker, t_data *data)
 	return (1);
 }
 
-void *client_thread(void *arg)
+void	*client_thread(void *arg)
 {
 	t_philo *t;
 

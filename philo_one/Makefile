@@ -8,7 +8,8 @@ HEADERS		=	./includes/
 CFLAGS		=   -I${HEADERS}
 
 SRCSC		=	srcs/philo_one.c	\
-				srcs/utils.c	\
+				srcs/utils.c	    \
+				srcs/utils_two.c    \
 				srcs/exec_thread.c	\
 				srcs/init.c         \
 				srcs/message.c      \

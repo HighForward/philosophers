@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/09 04:35:52 by user42            #+#    #+#             */
+/*   Updated: 2020/09/09 04:35:54 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo_one.h"
 
-int init_struct(char **argv, t_data *data)
+int		init_struct(char **argv, t_data *data)
 {
 	data->nb = ft_atoi(argv[0]);
 	data->die = ft_atoi(argv[1]);
@@ -13,7 +25,7 @@ int init_struct(char **argv, t_data *data)
 	return (1);
 }
 
-int init_mutex(t_data *data)
+int		init_mutex(t_data *data)
 {
 	int i;
 
@@ -31,7 +43,7 @@ int init_mutex(t_data *data)
 	return (0);
 }
 
-int init_thinker(t_philo *thinker, t_data *data, int i)
+int		init_thinker(t_philo *thinker, t_data *data, int i)
 {
 	thinker->index = i + 1;
 	thinker->data = data;
