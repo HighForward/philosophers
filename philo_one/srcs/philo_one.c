@@ -52,7 +52,8 @@ int		main(int argc, char **args)
 	i = 0;
 	if (argc < 5 || argc > 6)
 		return (return_str("wrong arguments\n", 0));
-	init_struct(args + 1, &data);
+	if (init_struct(args + 1, &data) == 0)
+		return (return_str("arguments wrong type\n", 0));
 	if (create_thinkers(&data, &thinker) != 0)
 		return (0);
 	while (alive_check(thinker, &data) == 1)

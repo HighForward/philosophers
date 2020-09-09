@@ -49,7 +49,8 @@ int		main(int argc, char **args)
 
 	if (argc < 5 || argc > 6)
 		return (return_str("wrong arguments\n", 0));
-	init_struct(args + 1, &data);
+	if (init_struct(args + 1, &data) == 0)
+		return (return_str("arguments wrong type\n", 0));
 	if (create_thinkers(&data, &thinker) != 0)
 		return (0);
 	waitpid(-1, &status, 0);

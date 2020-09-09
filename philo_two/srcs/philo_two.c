@@ -50,7 +50,8 @@ int		main(int argc, char **args)
 
 	if (argc < 5 || argc > 6)
 		return (return_str("wrong arguments\n", 0));
-	init_struct(args + 1, &data);
+	if (init_struct(args + 1, &data) == 0)
+		return (return_str("arguments wrong type\n", 0));
 	if (create_thinkers(&data, &thinker) != 0)
 		return (0);
 	while (alive_check(thinker, &data) == 1)
@@ -63,10 +64,7 @@ int		main(int argc, char **args)
 	sem_unlink("/take_fork");
 	i = 0;
 	while (i < data.nb)
-	{
-		sem_close(&thinker[i].sem_eat);
-		i++;
-	}
+		sem_close(&thinker[i++].sem_eat);
 	free(thinker);
 	return (0);
 }
