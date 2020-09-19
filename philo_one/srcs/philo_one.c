@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:34:50 by user42            #+#    #+#             */
-/*   Updated: 2020/09/19 19:40:27 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/20 00:34:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	launch_thinker(t_philo **thinker, t_data *data, int mid)
 			pthread_create(&(*thinker)[i].thread, NULL,
 			client_thread, (void*)&(*thinker)[i]);
 			pthread_detach((*thinker)[i].thread);
+			ft_usleep(200);
 		}
 		i++;
 	}
@@ -57,16 +58,14 @@ int		main(int argc, char **args)
 		return (0);
 	while (alive_check(thinker, &data) == 1)
 		;
-//	while (i < data.nb)
-//	{
-//		pthread_mutex_destroy(&thinker[i].mutex_eat);
-//		pthread_mutex_destroy(&data.forks[i].mutex);
-//		i++;
-//	}
-//	free(thinker);
-//	pthread_mutex_destroy(&data.take_fork);
-//	pthread_mutex_destroy(&data.mutex_msg);
-//	pthread_mutex_destroy(&data.take_fork);
-//	free(data.forks);
+	while (i < data.nb)
+	{
+		pthread_mutex_destroy(&thinker[i].mutex_eat);
+		pthread_mutex_destroy(&data.forks[i].mutex);
+		i++;
+	}
+	free(thinker);
+	free(data.forks);
+	pthread_mutex_destroy(&data.mutex_msg);
 	return (0);
 }

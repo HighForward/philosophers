@@ -37,7 +37,6 @@ typedef struct		s_data
 	struct timeval	start;
 	pthread_mutex_t	mutex_msg;
 	t_fork			*forks;
-	pthread_mutex_t	take_fork;
 }					t_data;
 
 typedef struct		s_philo

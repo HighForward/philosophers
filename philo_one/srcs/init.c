@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:35:52 by user42            #+#    #+#             */
-/*   Updated: 2020/09/19 19:29:53 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/20 00:16:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int		init_mutex(t_data *data)
 	i = 0;
 	pthread_mutex_init(&data->mutex_msg, NULL);
 	pthread_mutex_unlock(&data->mutex_msg);
-	pthread_mutex_init(&data->take_fork, NULL);
-	pthread_mutex_unlock(&data->take_fork);
 	while (i < data->nb)
 	{
 		pthread_mutex_init(&data->forks[i].mutex, NULL);
@@ -71,7 +69,7 @@ int		init_mutex(t_data *data)
 
 int		init_thinker(t_philo *thinker, t_data *data, int i)
 {
-	thinker->index = i + 1;
+	thinker->index = i;
 	thinker->data = data;
 	thinker->total_meal = 0;
 	thinker->is_eating = 0;
