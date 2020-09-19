@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:34:50 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 04:35:30 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/16 21:17:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	launch_thinker(t_philo **thinker, t_data *data, int mid)
 			pthread_create(&(*thinker)[i].thread, NULL,
 			client_thread, (void*)&(*thinker)[i]);
 			pthread_detach((*thinker)[i].thread);
-			ft_usleep(200);
 		}
 		i++;
 	}
@@ -34,7 +33,7 @@ void	launch_thinker(t_philo **thinker, t_data *data, int mid)
 int		create_thinkers(t_data *data, t_philo **thinker)
 {
 	(*thinker) = malloc(sizeof(t_philo) * data->nb);
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb);
+	data->forks = malloc(sizeof(t_fork) * data->nb);
 	gettimeofday(&data->start, NULL);
 	init_mutex(data);
 	launch_thinker(thinker, data, 0);
@@ -64,7 +63,7 @@ int		main(int argc, char **args)
 	while (i < data.nb)
 	{
 		pthread_mutex_destroy(&thinker[i].mutex_eat);
-		pthread_mutex_destroy(&data.forks[i]);
+		pthread_mutex_destroy(&data.forks[i].mutex);
 		i++;
 	}
 	free(thinker);

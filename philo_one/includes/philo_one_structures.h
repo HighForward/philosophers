@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:56:31 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 05:13:17 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/16 21:16:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # define DIED 5
 # define FED 6
 
+typedef struct		s_fork
+{
+	pthread_mutex_t	mutex;
+	int				i_last_philo;
+}					t_fork;
+
 typedef struct		s_data
 {
 	int				nb;
@@ -29,7 +35,7 @@ typedef struct		s_data
 	int				must_eat;
 	struct timeval	start;
 	pthread_mutex_t	mutex_msg;
-	pthread_mutex_t	*forks;
+	t_fork			*forks;
 	pthread_mutex_t	take_fork;
 }					t_data;
 

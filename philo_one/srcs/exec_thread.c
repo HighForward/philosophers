@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:36:02 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 04:36:04 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/16 21:37:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,22 @@ int		alive_check(t_philo *thinker, t_data *data)
 
 void	t_eat(t_philo *t)
 {
-	pthread_mutex_lock(&t->data->forks[t->lfork]);
-	message_alert(current_time((*t->data)), t->index, t, FORK);
-	pthread_mutex_lock(&t->data->forks[t->rfork]);
-	message_alert(current_time((*t->data)), t->index, t, FORK);
+	t_fork	fork;
+	int		index;
+
+	index = 0;
+	fork = (t->index + index) % 2 ? t->data->forks[t->lfork]
+			: t->data->forks[t->rfork];
+	while (index < 2)
+	{
+		while (fork.i_last_philo == t->index)
+			;
+		pthread_mutex_lock(&fork.mutex);
+		message_alert(current_time((*t->data)), t->index, t, FORK);
+		fork.i_last_philo = t->index;
+		fork = (t->index + (++index)) % 2 ? t->data->forks[t->lfork]
+				: t->data->forks[t->rfork];
+	}
 }
 
 void	*client_thread(void *arg)
@@ -69,15 +81,14 @@ void	*client_thread(void *arg)
 		message_alert(current_time((*t->data)), t->index, t, EAT);
 		pthread_mutex_lock(&t->mutex_eat);
 		t->is_eating = 1;
-		usleep(t->data->eat * 1000);
+		ft_usleep(t->data->eat * 1000);
 		t->is_eating = 0;
 		t->total_meal++;
 		pthread_mutex_unlock(&t->mutex_eat);
-		pthread_mutex_unlock(&t->data->forks[t->lfork]);
-		pthread_mutex_unlock(&t->data->forks[t->rfork]);
+		pthread_mutex_unlock(&t->data->forks[t->lfork].mutex);
+		pthread_mutex_unlock(&t->data->forks[t->rfork].mutex);
 		message_alert(current_time((*t->data)), t->index, t, SLEEP);
-		usleep(t->data->sleep * 1000);
-		usleep(1000);
+		ft_usleep(t->data->sleep * 1000);
 		message_alert(current_time((*t->data)), t->index, t, THINK);
 	}
 }

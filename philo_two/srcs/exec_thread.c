@@ -64,14 +64,14 @@ void	*client_thread(void *arg)
 		message_alert(current_time((*t->data)), t->index, t, EAT);
 		sem_wait(&t->sem_eat);
 		t->is_eating = 1;
-		usleep(t->data->eat * 1000);
+		ft_usleep(t->data->eat * 1000);
 		t->is_eating = 0;
 		t->total_meal++;
 		sem_post(&t->sem_eat);
 		sem_post(t->data->sem_fork);
 		sem_post(t->data->sem_fork);
 		message_alert(current_time((*t->data)), t->index, t, SLEEP);
-		usleep(t->data->sleep * 1000);
+		ft_usleep(t->data->sleep * 1000);
 		message_alert(current_time((*t->data)), t->index, t, THINK);
 	}
 }

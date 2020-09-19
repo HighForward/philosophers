@@ -23,7 +23,7 @@ int		check_input(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] < '0' || argv[i][j] >= '9')
+			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return (0);
 			j++;
 		}

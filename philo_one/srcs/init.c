@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:35:52 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 04:35:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/16 21:16:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		check_input(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] < '0' || argv[i][j] >= '9')
+			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return (0);
 			j++;
 		}
@@ -60,8 +60,9 @@ int		init_mutex(t_data *data)
 	pthread_mutex_unlock(&data->take_fork);
 	while (i < data->nb)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		pthread_mutex_unlock(&data->forks[i]);
+		pthread_mutex_init(&data->forks[i].mutex, NULL);
+		pthread_mutex_unlock(&data->forks[i].mutex);
+		data->forks[i].i_last_philo = -1;
 		i++;
 	}
 	return (0);
