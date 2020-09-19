@@ -71,6 +71,7 @@ int		init_semaphore(t_data *data)
 	sem_close(data->sem_msg);
 	data->sem_fork = sem_open("/sem_fork", O_CREAT, 0664, data->nb);
 	sem_close(data->sem_fork);
+	return (0);
 }
 
 int		init_thinker(t_philo *thinker, t_data *data, int i)
@@ -84,4 +85,5 @@ int		init_thinker(t_philo *thinker, t_data *data, int i)
 	thinker->timeout = data->die;
 	thinker->rfork = i;
 	thinker->lfork = ((i + 1) == data->nb) ? 0 : (i + 1);
+	return (0);
 }

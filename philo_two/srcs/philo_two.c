@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:39:39 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 18:39:40 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/19 17:34:07 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		main(int argc, char **args)
 {
 	t_data	data;
 	t_philo	*thinker;
-	int		i;
 
 	if (argc < 5 || argc > 6)
 		return (return_str("wrong arguments\n", 0));
@@ -56,15 +55,10 @@ int		main(int argc, char **args)
 		return (0);
 	while (alive_check(thinker, &data) == 1)
 		;
-	sem_close(data.sem_msg);
-	sem_close(data.sem_fork);
-	sem_close(data.take_fork);
-	sem_unlink("/sem_msg");
+	ft_usleep(500);
+	free(thinker);
 	sem_unlink("/sem_fork");
 	sem_unlink("/take_fork");
-	i = 0;
-	while (i < data.nb)
-		sem_close(&thinker[i++].sem_eat);
-	free(thinker);
+	sem_unlink("/sem_msg");
 	return (0);
 }

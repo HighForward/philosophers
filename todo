@@ -1,4 +1,1 @@
-check numerique char input
-check les leaks tt ca
-handle one philo parameter
-norminette
+TODO verif must eat sur les 3 philo, attention mutex lock message / segfault

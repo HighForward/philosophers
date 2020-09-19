@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:37:12 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 18:37:13 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/19 16:51:45 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	message_alert(long int time, int index, t_philo *thinker, int status)
 		write(1, "died\n", 5);
 	else if (status == FED)
 		write(1, "everyone is fed\n", 16);
-	if (status != DIED)
+	if (status != DIED && status != FED)
 		sem_post(thinker->data->sem_msg);
 }

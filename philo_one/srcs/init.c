@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:35:52 by user42            #+#    #+#             */
-/*   Updated: 2020/09/16 21:16:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/19 19:29:53 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		init_struct(char **argv, t_data *data)
 	data->die = ft_atoi(argv[1]);
 	data->eat = ft_atoi(argv[2]);
 	data->sleep = ft_atoi(argv[3]);
+	data->nb_rest = data->nb;
 	if (argv[4] != NULL)
 		data->must_eat = ft_atoi(argv[4]);
 	else
@@ -79,4 +80,5 @@ int		init_thinker(t_philo *thinker, t_data *data, int i)
 	pthread_mutex_unlock(&thinker->mutex_eat);
 	thinker->rfork = i;
 	thinker->lfork = ((i + 1) == data->nb) ? 0 : (i + 1);
+	return (0);
 }

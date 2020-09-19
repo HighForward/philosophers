@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:34:50 by user42            #+#    #+#             */
-/*   Updated: 2020/09/16 21:17:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/19 19:40:27 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ int		main(int argc, char **args)
 		return (0);
 	while (alive_check(thinker, &data) == 1)
 		;
-	pthread_mutex_destroy(&data.mutex_msg);
-	pthread_mutex_destroy(&data.take_fork);
-	pthread_mutex_destroy(&data.take_fork);
-	while (i < data.nb)
-	{
-		pthread_mutex_destroy(&thinker[i].mutex_eat);
-		pthread_mutex_destroy(&data.forks[i].mutex);
-		i++;
-	}
-	free(thinker);
-	free(data.forks);
+//	while (i < data.nb)
+//	{
+//		pthread_mutex_destroy(&thinker[i].mutex_eat);
+//		pthread_mutex_destroy(&data.forks[i].mutex);
+//		i++;
+//	}
+//	free(thinker);
+//	pthread_mutex_destroy(&data.take_fork);
+//	pthread_mutex_destroy(&data.mutex_msg);
+//	pthread_mutex_destroy(&data.take_fork);
+//	free(data.forks);
 	return (0);
 }

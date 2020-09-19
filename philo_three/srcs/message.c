@@ -34,6 +34,6 @@ void	message_alert(long int time, int index, t_philo *thinker, int status)
 		write(1, "died\n", 5);
 	else if (status == FED)
 		write(1, "everyone is fed\n", 16);
-	if (status != DIED)
+	if (status >= 0 && status <= 4)
 		sem_post(thinker->data->sem_msg);
 }

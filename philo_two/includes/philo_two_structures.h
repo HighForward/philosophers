@@ -42,8 +42,6 @@ typedef struct		s_philo
 	int				is_eating;
 	int				total_meal;
 	int				timeout;
-	int				lfork;
-	int				rfork;
 }					t_philo;
 
 #endif

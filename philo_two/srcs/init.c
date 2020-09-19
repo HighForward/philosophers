@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:31:13 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 18:31:17 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/19 16:55:39 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		init_semaphore(t_data *data)
 	data->sem_msg = sem_open("/sem_msg", O_CREAT, 0664, 1);
 	data->take_fork = sem_open("/take_fork", O_CREAT, 0664, 1);
 	data->sem_fork = sem_open("/sem_fork", O_CREAT, 0664, data->nb);
+	return (1);
 }
 
 int		init_thinker(t_philo *thinker, t_data *data, int i)
@@ -67,6 +68,5 @@ int		init_thinker(t_philo *thinker, t_data *data, int i)
 	thinker->total_meal = 0;
 	thinker->is_eating = 0;
 	thinker->timeout = data->die;
-	thinker->rfork = i;
-	thinker->lfork = ((i + 1) == data->nb) ? 0 : (i + 1);
+	return (1);
 }

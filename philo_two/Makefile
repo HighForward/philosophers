@@ -5,7 +5,7 @@ RM			=	rm -f
 OBJS_DIR	=	./objects/
 HEADERS		=	./includes/
 
-CFLAGS		=   -I${HEADERS}
+CFLAGS		=   -I${HEADERS} -Wno-deprecated -Wall -Wextra -Werror
 
 SRCSC		=	srcs/philo_two.c	\
 				srcs/utils.c		\
