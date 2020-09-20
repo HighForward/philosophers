@@ -6,23 +6,11 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:30:34 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 18:30:35 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/20 05:11:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_two.h"
-
-int		is_eating(t_philo thinker)
-{
-	sem_wait(&thinker.sem_eat);
-	if (thinker.is_eating == 0)
-	{
-		sem_post(&thinker.sem_eat);
-		return (0);
-	}
-	sem_post(&thinker.sem_eat);
-	return (1);
-}
 
 int		alive_check(t_philo *thinker, t_data *data)
 {
@@ -31,7 +19,7 @@ int		alive_check(t_philo *thinker, t_data *data)
 	i = 0;
 	while (i < data->nb)
 	{
-		if (thinker[i].total_meal >= thinker[i].data->must_eat)
+		if (data->nb_rest <= 0)
 		{
 			message_alert(current_time((*data)), i + 1, thinker, FED);
 			return (0);
@@ -70,8 +58,12 @@ void	*client_thread(void *arg)
 		sem_post(&t->sem_eat);
 		sem_post(t->data->sem_fork);
 		sem_post(t->data->sem_fork);
+		if (t->total_meal >= t->data->must_eat)
+			break;
 		message_alert(current_time((*t->data)), t->index, t, SLEEP);
 		ft_usleep(t->data->sleep * 1000);
 		message_alert(current_time((*t->data)), t->index, t, THINK);
 	}
+	t->data->nb_rest--;
+	return (NULL);
 }

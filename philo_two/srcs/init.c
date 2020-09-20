@@ -42,6 +42,7 @@ int		init_struct(char **argv, t_data *data)
 	data->die = ft_atoi(argv[1]);
 	data->eat = ft_atoi(argv[2]);
 	data->sleep = ft_atoi(argv[3]);
+	data->nb_rest = data->nb;
 	if (argv[4] != NULL)
 		data->must_eat = ft_atoi(argv[4]);
 	else
