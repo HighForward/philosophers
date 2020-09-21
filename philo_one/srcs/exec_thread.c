@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:36:02 by user42            #+#    #+#             */
-/*   Updated: 2020/09/20 00:13:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/21 07:42:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int		alive_check(t_philo *thinker, t_data *data)
 	{
 		if (data->nb_rest <= 0)
 		{
-			message_alert(current_time((*data)), i + 1, thinker, FED);
+			message_alert(current_time((*data)), i, thinker, FED);
 			return (0);
 		}
 		if (thinker[i].timeout < current_time((*thinker[i].data)) &&
-			thinker->is_eating == 0)
+			thinker[i].is_eating == 0)
 		{
-			message_alert(current_time((*data)), i + 1, thinker, DIED);
+			message_alert(current_time((*data)), i, thinker, DIED);
 			return (0);
 		}
 		i++;
@@ -64,9 +64,9 @@ void	*client_thread(void *arg)
 	{
 		t_eat(t);
 		t->timeout = current_time((*t->data)) + (t->data->die);
-		message_alert(current_time((*t->data)), t->index, t, EAT);
 		pthread_mutex_lock(&t->mutex_eat);
 		t->is_eating = 1;
+		message_alert(current_time((*t->data)), t->index, t, EAT);
 		ft_usleep(t->data->eat * 1000);
 		t->is_eating = 0;
 		t->total_meal++;
@@ -74,7 +74,7 @@ void	*client_thread(void *arg)
 		pthread_mutex_unlock(&t->data->forks[t->lfork].mutex);
 		pthread_mutex_unlock(&t->data->forks[t->rfork].mutex);
 		if (t->total_meal >= t->data->must_eat)
-			break;
+			break ;
 		message_alert(current_time((*t->data)), t->index, t, SLEEP);
 		ft_usleep(t->data->sleep * 1000);
 		message_alert(current_time((*t->data)), t->index, t, THINK);

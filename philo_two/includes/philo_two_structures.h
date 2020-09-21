@@ -28,6 +28,7 @@ typedef struct		s_data
 	int				sleep;
 	int				must_eat;
 	int				nb_rest;
+	int				is_died;
 	struct timeval	start;
 	sem_t			*sem_msg;
 	sem_t			*sem_fork;

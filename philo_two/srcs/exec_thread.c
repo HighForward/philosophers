@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:30:34 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/20 05:11:59 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/21 08:28:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int		alive_check(t_philo *thinker, t_data *data)
 			return (0);
 		}
 		if (thinker[i].timeout < current_time((*thinker[i].data)) &&
-			thinker->is_eating == 0)
+			thinker[i].is_eating == 0)
 		{
 			message_alert(current_time((*data)), i + 1, thinker, DIED);
+			data->is_died = 1;
 			return (0);
 		}
 		i++;

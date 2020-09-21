@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:39:39 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/19 17:34:07 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/21 08:16:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int		main(int argc, char **args)
 		return (0);
 	while (alive_check(thinker, &data) == 1)
 		;
-	ft_usleep(500);
-	free(thinker);
+	ft_usleep(data.eat + data.sleep * 1000);
 	sem_unlink("/sem_fork");
 	sem_unlink("/take_fork");
 	sem_unlink("/sem_msg");
+	free(thinker);
 	return (0);
 }

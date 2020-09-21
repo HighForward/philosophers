@@ -33,7 +33,7 @@ typedef struct		s_data
 	int				eat;
 	int				sleep;
 	int				must_eat;
-	int 			nb_rest;
+	int				nb_rest;
 	struct timeval	start;
 	pthread_mutex_t	mutex_msg;
 	t_fork			*forks;
@@ -42,6 +42,7 @@ typedef struct		s_data
 typedef struct		s_philo
 {
 	pthread_t		thread;
+	pthread_t		alive;
 	pthread_mutex_t	mutex_eat;
 	t_data			*data;
 	int				index;

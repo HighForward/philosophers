@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:35:45 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 04:35:46 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/21 07:37:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	message_alert(long int time, int index, t_philo *thinker, int status)
 		write(1, "died\n", 5);
 	else if (status == FED)
 		write(1, "everyone is fed\n", 16);
-	if (status != DIED)
+	if (status != DIED && status != FED)
 		pthread_mutex_unlock(&thinker->data->mutex_msg);
 }
