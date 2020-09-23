@@ -35,12 +35,13 @@ int			ft_strlen(const char *str);
 int			return_str(char *str, int ret);
 long int	current_time(t_data data);
 int			init_struct(char **argv, t_data *data);
-int			create_process(t_data *data, t_philo *thinker);
+int			create_process(t_data *data, t_philo *thinker, int i);
 void		*alive_check(void *arg);
 char		*ft_itoa(int n);
 int			init_thinker(t_philo *thinker, t_data *data, int i);
 void		message_alert(long int time, int index,
 				t_philo *thinker, int status);
 int			init_semaphore(t_data *data);
+void	*death(void *arg);
 
 #endif

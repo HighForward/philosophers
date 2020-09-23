@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:39:36 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 20:39:38 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/23 22:57:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@ typedef struct		s_data
 	int				eat;
 	int				sleep;
 	int				must_eat;
+	int 			state;
+	pid_t 			*pid;
 	struct timeval	start;
 	sem_t			*sem_msg;
 	sem_t			*sem_fork;
 	sem_t			*take_fork;
+	sem_t			*stop;
+	sem_t			*death;
 }					t_data;
 
 typedef struct		s_philo
@@ -44,8 +48,6 @@ typedef struct		s_philo
 	int				is_eating;
 	int				total_meal;
 	int				timeout;
-	int				lfork;
-	int				rfork;
 }					t_philo;
 
 #endif

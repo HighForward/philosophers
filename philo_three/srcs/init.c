@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:17:06 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 20:17:07 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/23 23:29:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int		init_struct(char **argv, t_data *data)
 	data->die = ft_atoi(argv[1]);
 	data->eat = ft_atoi(argv[2]);
 	data->sleep = ft_atoi(argv[3]);
+	data->pid = malloc(sizeof(pid_t) * data->nb);
+	data->state = 0;
 	if (argv[4] != NULL)
 		data->must_eat = ft_atoi(argv[4]);
 	else
@@ -65,12 +67,18 @@ int		init_semaphore(t_data *data)
 	sem_unlink("/sem_msg");
 	sem_unlink("/take_fork");
 	sem_unlink("/sem_fork");
+	sem_unlink("/stop");
+	sem_unlink("/death");
 	data->sem_msg = sem_open("/sem_msg", O_CREAT, 0664, 1);
 	sem_close(data->sem_msg);
 	data->sem_msg = sem_open("/take_fork", O_CREAT, 0664, 1);
 	sem_close(data->sem_msg);
 	data->sem_fork = sem_open("/sem_fork", O_CREAT, 0664, data->nb);
 	sem_close(data->sem_fork);
+	data->stop = sem_open("/stop", O_CREAT, 0664, 1);
+	sem_wait(data->stop);
+	data->death = sem_open("/death", O_CREAT, 0664, 1);
+	sem_wait(data->death);
 	return (0);
 }
 
@@ -83,7 +91,5 @@ int		init_thinker(t_philo *thinker, t_data *data, int i)
 	thinker->total_meal = 0;
 	thinker->is_eating = 0;
 	thinker->timeout = data->die;
-	thinker->rfork = i;
-	thinker->lfork = ((i + 1) == data->nb) ? 0 : (i + 1);
 	return (0);
 }
