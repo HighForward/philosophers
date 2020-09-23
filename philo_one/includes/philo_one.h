@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:55:12 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 04:55:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/22 23:16:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		ft_putchar(char c);
 void		ft_putstr(char *str);
 void		ft_putnbr(int nb);
 void		*client_thread(void *arg);
-void		message_alert(long int time, int index, t_philo *thinker,
+int		message_alert(long int time, int index, t_philo *thinker,
 					int status);
 int			ft_atoi(const char *nptr);
 int			ft_strlen(const char *str);

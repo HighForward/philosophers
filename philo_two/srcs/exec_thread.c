@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:30:34 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/21 08:28:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/23 04:35:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		alive_check(t_philo *thinker, t_data *data)
 			thinker[i].is_eating == 0)
 		{
 			message_alert(current_time((*data)), i + 1, thinker, DIED);
-			data->is_died = 1;
+			data->stop = 1;
 			return (0);
 		}
 		i++;
@@ -45,12 +45,15 @@ void	*client_thread(void *arg)
 	{
 		sem_wait(t->data->take_fork);
 		sem_wait(t->data->sem_fork);
-		message_alert(current_time((*t->data)), t->index, t, FORK);
+		if (message_alert(current_time((*t->data)), t->index, t, FORK) == 0)
+			break ;
 		sem_wait(t->data->sem_fork);
-		message_alert(current_time((*t->data)), t->index, t, FORK);
+		if (message_alert(current_time((*t->data)), t->index, t, FORK) == 0)
+			break ;
 		sem_post(t->data->take_fork);
 		t->timeout = current_time((*t->data)) + (t->data->die);
-		message_alert(current_time((*t->data)), t->index, t, EAT);
+		if (message_alert(current_time((*t->data)), t->index, t, EAT) == 0)
+			break ;
 		sem_wait(&t->sem_eat);
 		t->is_eating = 1;
 		ft_usleep(t->data->eat * 1000);
@@ -61,9 +64,11 @@ void	*client_thread(void *arg)
 		sem_post(t->data->sem_fork);
 		if (t->total_meal >= t->data->must_eat)
 			break;
-		message_alert(current_time((*t->data)), t->index, t, SLEEP);
+		if (message_alert(current_time((*t->data)), t->index, t, SLEEP) == 0)
+			break ;
 		ft_usleep(t->data->sleep * 1000);
-		message_alert(current_time((*t->data)), t->index, t, THINK);
+		if (message_alert(current_time((*t->data)), t->index, t, THINK) == 0)
+			break ;
 	}
 	t->data->nb_rest--;
 	return (NULL);

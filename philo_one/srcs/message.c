@@ -6,15 +6,21 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:35:45 by user42            #+#    #+#             */
-/*   Updated: 2020/09/21 07:37:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/23 05:19:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_one.h"
 
-void	message_alert(long int time, int index, t_philo *thinker, int status)
+int	message_alert(long int time, int index, t_philo *thinker, int status)
 {
 	pthread_mutex_lock(&thinker->data->mutex_msg);
+	if (thinker->data->stop == 1)
+	{
+		ft_putnbr(index);
+		ft_putchar('\n');
+		return (0);
+	}
 	ft_putnbr(time);
 	ft_putchar(' ');
 	if (status != FED)
@@ -36,4 +42,5 @@ void	message_alert(long int time, int index, t_philo *thinker, int status)
 		write(1, "everyone is fed\n", 16);
 	if (status != DIED && status != FED)
 		pthread_mutex_unlock(&thinker->data->mutex_msg);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 19:13:26 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 19:13:28 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/22 23:16:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct		s_data
 	int				eat;
 	int				sleep;
 	int				must_eat;
-	int				nb_rest;
-	int				is_died;
+	int 			stop;
+	int 			nb_rest;
 	struct timeval	start;
 	sem_t			*sem_msg;
 	sem_t			*sem_fork;

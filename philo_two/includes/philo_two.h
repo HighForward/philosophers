@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:47:18 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/09 18:47:19 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/22 23:16:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			init_struct(char **argv, t_data *data);
 int			alive_check(t_philo *thinker, t_data *data);
 void		*client_thread(void *arg);
 int			init_thinker(t_philo *thinker, t_data *data, int i);
-void		message_alert(long int time, int index,
+int		message_alert(long int time, int index,
 				t_philo *thinker, int status);
 int			init_semaphore(t_data *data);
 void		ft_usleep(int n);

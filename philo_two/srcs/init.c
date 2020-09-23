@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:31:13 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/19 16:55:39 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/22 23:16:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		init_struct(char **argv, t_data *data)
 	data->eat = ft_atoi(argv[2]);
 	data->sleep = ft_atoi(argv[3]);
 	data->nb_rest = data->nb;
-	data->is_died = 0;
+	data->stop = 0;
 	if (argv[4] != NULL)
 		data->must_eat = ft_atoi(argv[4]);
 	else

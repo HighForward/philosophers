@@ -6,15 +6,17 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:37:12 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/19 16:51:45 by mbrignol         ###   ########.fr       */
+/*   Updated: 2020/09/23 04:35:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_two.h"
 
-void	message_alert(long int time, int index, t_philo *thinker, int status)
+int	message_alert(long int time, int index, t_philo *thinker, int status)
 {
 	sem_wait(thinker->data->sem_msg);
+	if (thinker->data->stop == 1)
+		return (0);
 	ft_putnbr(time);
 	ft_putchar(' ');
 	if (status != FED)
@@ -36,4 +38,5 @@ void	message_alert(long int time, int index, t_philo *thinker, int status)
 		write(1, "everyone is fed\n", 16);
 	if (status != DIED && status != FED)
 		sem_post(thinker->data->sem_msg);
+	return (1);
 }
