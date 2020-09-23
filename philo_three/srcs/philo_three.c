@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:18:27 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 07:57:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/19 18:09:34 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		main(int argc, char **args)
 	i = 0;
 	while (i < data.nb)
 	{
-		kill(thinker[i].pid, SIGTERM);
+		kill(thinker[i].pid, SIGQUIT);
 		sem_unlink(thinker[i].sem_eat_name);
 		free(thinker[i].sem_eat_name);
 		i++;
@@ -65,8 +65,6 @@ int		main(int argc, char **args)
 	sem_unlink("/sem_fork");
 	sem_unlink("/sem_msg");
 	sem_unlink("/take_fork");
-	sem_unlink("/fed");
-	sem_unlink("/stop");
 	free(thinker);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:17:36 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 07:57:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 20:17:36 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	message_alert(long int time, int index, t_philo *thinker, int status)
 {
 	sem_wait(thinker->data->sem_msg);
-	sem_wait(thinker->data->fed);
 	ft_putnbr(time);
 	ft_putchar(' ');
 	if (status != FED)
@@ -32,13 +31,9 @@ void	message_alert(long int time, int index, t_philo *thinker, int status)
 	else if (status == FORK)
 		write(1, "has taken a fork\n", 17);
 	else if (status == DIED)
-	{
 		write(1, "died\n", 5);
-		exit(EXIT_SUCCESS);
-	}
 	else if (status == FED)
 		write(1, "everyone is fed\n", 16);
-	if (status != FED)
+	if (status >= 0 && status <= 4)
 		sem_post(thinker->data->sem_msg);
-	sem_post(thinker->data->fed);
 }

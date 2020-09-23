@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 19:55:12 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 07:57:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/19 19:10:13 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,23 @@ void	*alive_check(void *arg)
 	t_philo *thinker;
 
 	thinker = (t_philo*)arg;
-	while (thinker->stop == 0)
+	while (1)
 	{
-		if (thinker->total_meal >= thinker->data->must_eat && thinker->stop == 0)
+		if (thinker->total_meal >= thinker->data->must_eat)
 		{
 			message_alert(current_time((*thinker->data)),
 				thinker->index, thinker, FED);
-			thinker->stop = 1;
-			sem_post(thinker->data->stop);
-			sem_post(thinker->data->sem_msg);
-			return (NULL);
-//			exit(EXIT_SUCCESS);
+			exit(EXIT_SUCCESS);
 		}
 		if (thinker->timeout < current_time((*thinker->data)) &&
-			thinker->is_eating == 0 && thinker->stop == 0)
+			thinker->is_eating == 0)
 		{
 			message_alert(current_time((*thinker->data)),
 				thinker->index, thinker, DIED);
-			thinker->stop = 1;
-			sem_post(thinker->data->stop);
-			sem_post(thinker->data->sem_msg);
-			return (NULL);
-//			exit(EXIT_SUCCESS);
+			exit(EXIT_SUCCESS);
 		}
+		usleep(30);
 	}
-	return (NULL);
 }
 
 void	t_eat(t_data *data, t_philo *thinker)
@@ -89,13 +81,10 @@ int		create_process(t_data *data, t_philo *thinker)
 		data->sem_msg = sem_open("/sem_msg", O_RDWR);
 		data->sem_fork = sem_open("/sem_fork", O_RDWR);
 		data->take_fork = sem_open("/take_fork", O_RDWR);
-		data->stop = sem_open("/stop", O_RDWR);
-		data->fed = sem_open("/fed", O_RDWR);
 		thinker->sem_eat = sem_open(thinker->sem_eat_name, O_RDWR);
 		pthread_create(&thinker->thread, NULL, alive_check, (void*)thinker);
 		pthread_detach(thinker->thread);
 		client_loop(data, thinker);
-		exit(1);
 	}
 	return (0);
 }

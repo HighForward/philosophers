@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:17:06 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 07:57:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 20:17:07 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,17 @@ int		init_semaphore(t_data *data)
 	sem_unlink("/sem_msg");
 	sem_unlink("/take_fork");
 	sem_unlink("/sem_fork");
-	sem_unlink("/stop");
-	sem_unlink("/fed");
 	data->sem_msg = sem_open("/sem_msg", O_CREAT, 0664, 1);
 	sem_close(data->sem_msg);
 	data->sem_msg = sem_open("/take_fork", O_CREAT, 0664, 1);
 	sem_close(data->sem_msg);
 	data->sem_fork = sem_open("/sem_fork", O_CREAT, 0664, data->nb);
 	sem_close(data->sem_fork);
-	data->stop = sem_open("/stop", O_CREAT, 0664, 1);
-	data->fed = sem_open("/fed", O_CREAT, 0664, 1);
-	sem_post(data->stop);
-//	sem_post(data->fed);
 	return (0);
 }
 
 int		init_thinker(t_philo *thinker, t_data *data, int i)
 {
-	thinker->stop = 0;
 	thinker->sem_eat_name = ft_itoa(i);
 	thinker->sem_eat = sem_open(thinker->sem_eat_name, O_CREAT, 0664, 1);
 	thinker->index = i + 1;

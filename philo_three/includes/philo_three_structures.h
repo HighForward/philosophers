@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:39:36 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 07:57:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 20:39:38 by mbrignol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ typedef struct		s_data
 	sem_t			*sem_msg;
 	sem_t			*sem_fork;
 	sem_t			*take_fork;
-	sem_t			*stop;
-	sem_t			*fed;
 }					t_data;
 
 typedef struct		s_philo
@@ -42,7 +40,6 @@ typedef struct		s_philo
 	pid_t			pid;
 	t_data			*data;
 	char			*sem_eat_name;
-	int 			stop;
 	int				index;
 	int				is_eating;
 	int				total_meal;
