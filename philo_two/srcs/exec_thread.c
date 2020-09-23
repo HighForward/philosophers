@@ -54,12 +54,12 @@ void	*client_thread(void *arg)
 		t->timeout = current_time((*t->data)) + (t->data->die);
 		if (message_alert(current_time((*t->data)), t->index, t, EAT) == 0)
 			break ;
-		sem_wait(&t->sem_eat);
+		sem_wait(t->sem_eat);
 		t->is_eating = 1;
 		ft_usleep(t->data->eat * 1000);
 		t->is_eating = 0;
 		t->total_meal++;
-		sem_post(&t->sem_eat);
+		sem_post(t->sem_eat);
 		sem_post(t->data->sem_fork);
 		sem_post(t->data->sem_fork);
 		if (t->total_meal >= t->data->must_eat)

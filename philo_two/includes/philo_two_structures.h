@@ -37,9 +37,10 @@ typedef struct		s_data
 
 typedef struct		s_philo
 {
-	sem_t			sem_eat;
-	pthread_t		thread;
 	t_data			*data;
+	pthread_t		thread;
+	sem_t			*sem_eat;
+	char			*sem_eat_name;
 	int				index;
 	int				is_eating;
 	int				total_meal;

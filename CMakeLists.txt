@@ -1,5 +1,0 @@
-cmake_minimum_required(VERSION 3.15)
-project(philo_one C)
-set(CMAKE_C_STANDARD 11)
-include_directories(includes)
-add_executable(philo_one srcs/philo_one.c srcs/utils.c srcs/utils_two.c srcs/message.c srcs/init.c srcs/exec_thread.c)

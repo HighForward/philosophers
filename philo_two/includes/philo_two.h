@@ -39,5 +39,6 @@ int		message_alert(long int time, int index,
 				t_philo *thinker, int status);
 int			init_semaphore(t_data *data);
 void		ft_usleep(int n);
+char		*ft_itoa(int n);
 
 #endif

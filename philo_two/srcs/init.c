@@ -53,6 +53,17 @@ int		init_struct(char **argv, t_data *data)
 
 int		init_semaphore(t_data *data)
 {
+	int i;
+	char	*temp;
+
+	i = 0;
+	while (i < 200)
+	{
+		temp = ft_itoa(i);
+		sem_unlink(temp);
+		free(temp);
+		i++;
+	}
 	sem_unlink("/sem_msg");
 	sem_unlink("/take_fork");
 	sem_unlink("/sem_fork");
@@ -64,7 +75,8 @@ int		init_semaphore(t_data *data)
 
 int		init_thinker(t_philo *thinker, t_data *data, int i)
 {
-	sem_init(&thinker->sem_eat, 0, 1);
+	thinker->sem_eat_name = ft_itoa(i);
+	thinker->sem_eat = sem_open(thinker->sem_eat_name, O_CREAT, 0664, 1);
 	thinker->index = i + 1;
 	thinker->data = data;
 	thinker->total_meal = 0;
