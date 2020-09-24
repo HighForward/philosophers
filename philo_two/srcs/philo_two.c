@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 18:39:39 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/24 02:50:44 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 11:59:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	clear(t_data *data, t_philo *t)
 	i = 0;
 	while (i < data->nb)
 	{
+		sem_close(t[i].sem_eat);
 		sem_unlink(t[i].sem_eat_name);
 		free(t[i].sem_eat_name);
 		i++;
@@ -56,6 +57,9 @@ void	clear(t_data *data, t_philo *t)
 	sem_post(data->sem_fork);
 	sem_post(data->sem_msg);
 	sem_post(data->take_fork);
+	sem_close(data->sem_fork);
+	sem_close(data->sem_msg);
+	sem_close(data->take_fork);
 	sem_unlink("/sem_fork");
 	sem_unlink("/take_fork");
 	sem_unlink("/sem_msg");
