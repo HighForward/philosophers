@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 19:55:12 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 23:32:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 03:09:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	*death(void *arg)
 {
-	t_data *data = (t_data*)arg;
+	t_data *data;
 
+	data = (t_data*)arg;
 	sem_wait(data->death);
 	data->state = 1;
 	sem_post(data->stop);
@@ -65,7 +66,7 @@ void	client_loop(t_data *data, t_philo *t)
 		sem_post(data->sem_fork);
 		sem_post(data->sem_fork);
 		if (t->total_meal >= t->data->must_eat)
-			break;
+			break ;
 		message_alert(current_time((*t->data)), t->index, t, SLEEP);
 		usleep(t->data->sleep * 1000);
 		message_alert(current_time((*t->data)), t->index, t, THINK);
@@ -88,6 +89,5 @@ int		create_process(t_data *data, t_philo *t, int i)
 		pthread_detach(t->thread);
 		client_loop(data, t);
 	}
-
 	return (0);
 }

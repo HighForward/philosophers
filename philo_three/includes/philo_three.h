@@ -42,6 +42,6 @@ int			init_thinker(t_philo *thinker, t_data *data, int i);
 void		message_alert(long int time, int index,
 				t_philo *thinker, int status);
 int			init_semaphore(t_data *data);
-void	*death(void *arg);
+void		*death(void *arg);
 
 #endif

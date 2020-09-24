@@ -28,7 +28,7 @@ void		ft_putchar(char c);
 void		ft_putstr(char *str);
 void		ft_putnbr(int nb);
 void		*client_thread(void *arg);
-int		message_alert(long int time, int index, t_philo *thinker,
+int			message_alert(long int time, int index, t_philo *thinker,
 					int status);
 int			ft_atoi(const char *nptr);
 int			ft_strlen(const char *str);

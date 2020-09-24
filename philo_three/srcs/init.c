@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:17:06 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 23:29:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 03:16:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		init_struct(char **argv, t_data *data)
 	return (1);
 }
 
-int		init_semaphore(t_data *data)
+void	unlink_semaphore(void)
 {
 	int		i;
 	char	*temp;
@@ -69,6 +69,11 @@ int		init_semaphore(t_data *data)
 	sem_unlink("/sem_fork");
 	sem_unlink("/stop");
 	sem_unlink("/death");
+}
+
+int		init_semaphore(t_data *data)
+{
+	unlink_semaphore();
 	data->sem_msg = sem_open("/sem_msg", O_CREAT, 0664, 1);
 	sem_close(data->sem_msg);
 	data->sem_msg = sem_open("/take_fork", O_CREAT, 0664, 1);

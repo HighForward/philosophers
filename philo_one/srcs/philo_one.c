@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:34:50 by user42            #+#    #+#             */
-/*   Updated: 2020/09/23 18:55:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 02:25:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,25 @@ int		create_thinkers(t_data *data, t_philo **thinker)
 	return (0);
 }
 
+void	wait_clear_exit(t_data *data, t_philo *thinker)
+{
+	int i;
+
+	i = 0;
+	while (data->nb_rest != 0)
+	{
+		i = 0;
+		pthread_mutex_unlock(&data->mutex_msg);
+		while (i < data->nb)
+		{
+			pthread_mutex_unlock(&thinker[i].mutex_eat);
+			pthread_mutex_unlock(&data->forks[i].mutex);
+			i++;
+		}
+		ft_usleep(50);
+	}
+}
+
 int		main(int argc, char **args)
 {
 	t_data	data;
@@ -57,17 +76,7 @@ int		main(int argc, char **args)
 		return (0);
 	while (alive_check(thinker, &data) == 1)
 		;
-	while (data.nb_rest != 0)
-	{
-		i = 0;
-		pthread_mutex_unlock(&data.mutex_msg);
-		while (i < data.nb)
-		{
-			pthread_mutex_unlock(&thinker[i].mutex_eat);
-			pthread_mutex_unlock(&data.forks[i].mutex);
-			i++;
-		}
-	}
+	wait_clear_exit(&data, thinker);
 	i = 0;
 	while (i < data.nb)
 	{

@@ -6,18 +6,19 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:18:27 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/23 23:36:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 03:16:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_three.h"
 
-int 	wait_and_kill(t_data *data)
+int		wait_and_kill(t_data *data)
 {
-	pthread_t death_check;
-	int		status;
-	int i = 0;
+	pthread_t	death_check;
+	int			status;
+	int			i;
 
+	i = 0;
 	pthread_create(&death_check, NULL, death, (void*)data);
 	pthread_detach(death_check);
 	sem_wait(data->stop);
@@ -26,18 +27,13 @@ int 	wait_and_kill(t_data *data)
 		while (waitpid(-1, &status, 0) > 0)
 			;
 		if (WIFEXITED(status))
-		{
 			if (WEXITSTATUS(status) == FED)
 				write(1, "everyone is fed\n", 16);
-		}
 	}
 	else
 	{
 		while (i < data->nb)
-		{
-			kill(data->pid[i], SIGKILL);
-			i++;
-		}
+			kill(data->pid[i++], SIGKILL);
 	}
 	while (waitpid(-1, &status, 0) > 0)
 		;
@@ -72,11 +68,30 @@ int		create_thinkers(t_data *data, t_philo **thinker)
 	return (0);
 }
 
+void	clear(t_data *data, t_philo *t)
+{
+	int i;
+
+	i = 0;
+	while (i < data->nb)
+	{
+		sem_unlink(t[i].sem_eat_name);
+		free(t[i].sem_eat_name);
+		i++;
+	}
+	sem_unlink("/sem_fork");
+	sem_unlink("/sem_msg");
+	sem_unlink("/take_fork");
+	sem_unlink("/stop");
+	sem_unlink("/death");
+	free(data->pid);
+	free(t);
+}
+
 int		main(int argc, char **args)
 {
 	t_data	data;
 	t_philo	*thinker;
-	int		i;
 
 	if (argc < 5 || argc > 6)
 		return (return_str("wrong arguments\n", 0));
@@ -85,19 +100,6 @@ int		main(int argc, char **args)
 	if (create_thinkers(&data, &thinker) != 0)
 		return (0);
 	wait_and_kill(&data);
-	i = 0;
-	while (i < data.nb)
-	{
- 		sem_unlink(thinker[i].sem_eat_name);
-		free(thinker[i].sem_eat_name);
-		i++;
-	}
-	sem_unlink("/sem_fork");
-	sem_unlink("/sem_msg");
-	sem_unlink("/take_fork");
-	sem_unlink("/stop");
-	sem_unlink("/death");
-	free(data.pid);
-	free(thinker);
+	clear(&data, thinker);
 	return (0);
 }

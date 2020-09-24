@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:56:31 by user42            #+#    #+#             */
-/*   Updated: 2020/09/23 18:55:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 02:28:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef struct		s_data
 	int				eat;
 	int				sleep;
 	int				must_eat;
-	int 			nb_rest;
-	int 			stop;
+	int				nb_rest;
+	int				stop;
+	t_fork			*forks;
 	struct timeval	start;
 	pthread_mutex_t	mutex_msg;
-	t_fork			*forks;
 }					t_data;
 
 typedef struct		s_philo

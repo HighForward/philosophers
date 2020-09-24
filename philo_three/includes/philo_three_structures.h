@@ -27,8 +27,8 @@ typedef struct		s_data
 	int				eat;
 	int				sleep;
 	int				must_eat;
-	int 			state;
-	pid_t 			*pid;
+	int				state;
+	pid_t			*pid;
 	struct timeval	start;
 	sem_t			*sem_msg;
 	sem_t			*sem_fork;

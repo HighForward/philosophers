@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 04:36:02 by user42            #+#    #+#             */
-/*   Updated: 2020/09/23 18:55:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 02:20:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		alive_check(t_philo *thinker, t_data *data)
 		if (thinker[i].timeout < current_time((*thinker[i].data)) &&
 			thinker[i].is_eating == 0)
 		{
-			//mutex eat maybe
 			message_alert(current_time((*data)), i, thinker, DIED);
 			data->stop = 1;
 			return (0);
@@ -37,7 +36,7 @@ int		alive_check(t_philo *thinker, t_data *data)
 	return (1);
 }
 
-int	t_eat(t_philo *t)
+int		t_eat(t_philo *t)
 {
 	t_fork	*fork;
 	int		index;
@@ -47,7 +46,7 @@ int	t_eat(t_philo *t)
 			: &t->data->forks[t->rfork];
 	while (index < 2)
 	{
-		while (fork->i_last_philo == t->index)
+		while (fork->i_last_philo == t->index && t->data->stop == 0)
 			;
 		pthread_mutex_lock(&fork->mutex);
 		if (message_alert(current_time((*t->data)), t->index, t, FORK) == 0)
@@ -59,6 +58,18 @@ int	t_eat(t_philo *t)
 	return (1);
 }
 
+void	lets_eat(t_philo *t)
+{
+	pthread_mutex_lock(&t->mutex_eat);
+	t->is_eating = 1;
+	ft_usleep(t->data->eat * 1000);
+	t->is_eating = 0;
+	t->total_meal++;
+	pthread_mutex_unlock(&t->data->forks[t->lfork].mutex);
+	pthread_mutex_unlock(&t->data->forks[t->rfork].mutex);
+	pthread_mutex_unlock(&t->mutex_eat);
+}
+
 void	*client_thread(void *arg)
 {
 	t_philo *t;
@@ -67,17 +78,11 @@ void	*client_thread(void *arg)
 	while (1)
 	{
 		if (t_eat(t) == 0)
-			break;
+			break ;
 		t->timeout = current_time((*t->data)) + (t->data->die);
 		if (message_alert(current_time((*t->data)), t->index, t, EAT) == 0)
-		pthread_mutex_lock(&t->mutex_eat);
-		t->is_eating = 1;
-		ft_usleep(t->data->eat * 1000);
-		t->is_eating = 0;
-		t->total_meal++;
-		pthread_mutex_unlock(&t->data->forks[t->lfork].mutex);
-		pthread_mutex_unlock(&t->data->forks[t->rfork].mutex);
-		pthread_mutex_unlock(&t->mutex_eat);
+			break ;
+		lets_eat(t);
 		if (t->total_meal >= t->data->must_eat)
 			break ;
 		if (message_alert(current_time((*t->data)), t->index, t, SLEEP) == 0)

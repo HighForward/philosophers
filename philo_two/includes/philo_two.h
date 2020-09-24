@@ -35,7 +35,7 @@ int			init_struct(char **argv, t_data *data);
 int			alive_check(t_philo *thinker, t_data *data);
 void		*client_thread(void *arg);
 int			init_thinker(t_philo *thinker, t_data *data, int i);
-int		message_alert(long int time, int index,
+int			message_alert(long int time, int index,
 				t_philo *thinker, int status);
 int			init_semaphore(t_data *data);
 void		ft_usleep(int n);

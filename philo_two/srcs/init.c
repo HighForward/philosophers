@@ -53,7 +53,7 @@ int		init_struct(char **argv, t_data *data)
 
 int		init_semaphore(t_data *data)
 {
-	int i;
+	int		i;
 	char	*temp;
 
 	i = 0;

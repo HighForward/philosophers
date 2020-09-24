@@ -16,11 +16,7 @@ int	message_alert(long int time, int index, t_philo *thinker, int status)
 {
 	pthread_mutex_lock(&thinker->data->mutex_msg);
 	if (thinker->data->stop == 1)
-	{
-		ft_putnbr(index);
-		ft_putchar('\n');
 		return (0);
-	}
 	ft_putnbr(time);
 	ft_putchar(' ');
 	if (status != FED)
