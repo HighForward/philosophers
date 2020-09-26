@@ -5,13 +5,15 @@ RM			=	rm -f
 OBJS_DIR	=	./objects/
 HEADERS		=	./includes/
 
-CFLAGS		=   -I${HEADERS} -g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS		=   -I${HEADERS}
 
 SRCSC		=	srcs/philo_three.c		\
 				srcs/utils.c			\
 				srcs/utils_two.c		\
+				srcs/init_struct.c		\
 				srcs/exec_processes.c	\
 				srcs/init.c         	\
+				srcs/clear.c         	\
 				srcs/message.c      	\
 
 OBJS		= ${SRCSC:%.c=${OBJS_DIR}/%.o}

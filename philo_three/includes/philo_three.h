@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:36:57 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/26 02:37:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/26 08:23:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@ void		ft_putnbr(int nb);
 int			ft_strlen(const char *str);
 int			return_str(char *str, int ret);
 long int	current_time(t_data data);
+int		wait_and_kill(t_data *data);
+void	client_loop(t_data *data, t_philo *t);
+void	clear(t_data *data);
 int			init_struct(char **argv, t_data *data);
-int			create_process(t_data *data, t_philo *thinker, int i);
+int			create_process(t_philo *thinker, t_data *data, int i);
 void		*alive_check(void *arg);
 char		*ft_itoa(int n);
-int			init_thinker(t_philo *thinker, t_data *data, int i);
+int			init_thinker(t_philo *t, t_data *data, int i);
 void		message_alert(long int time, int index,
 				t_philo *thinker, int status);
 int			init_semaphore(t_data *data);
 void		*death(void *arg);
+void 	clear_child_exit(t_philo *t, t_data *data);
 
 #endif

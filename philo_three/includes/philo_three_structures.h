@@ -6,7 +6,7 @@
 /*   By: mbrignol <mbrignol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 20:39:36 by mbrignol          #+#    #+#             */
-/*   Updated: 2020/09/26 02:37:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/26 04:56:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct		s_data
 	int				sleep;
 	int				must_eat;
 	int				state;
-	pid_t			*pid;
 	struct timeval	start;
+	pid_t			*pid;
 	sem_t			*sem_msg;
 	sem_t			*sem_fork;
 	sem_t			*take_fork;
@@ -39,15 +39,15 @@ typedef struct		s_data
 
 typedef struct		s_philo
 {
+	t_data			*data;
 	pthread_t		thread;
 	sem_t			*sem_eat;
-	pid_t			pid;
-	t_data			*data;
 	char			*sem_eat_name;
 	int				index;
 	int				is_eating;
 	int				total_meal;
 	int				timeout;
+	int 			leave_thread;
 }					t_philo;
 
 #endif
